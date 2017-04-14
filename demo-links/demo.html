@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>返回顶部-JS</title>
+	<style type="text/css">
+		body {margin: 0;padding: 0;}
+		.container {width: 80%;height: 1400px;margin: 0 auto;}
+		.c1 {background: #81d73e; height: 400px;}
+		.c2 {background: #c8db74; height: 500px;}
+		.c3 {background: #1aa35f; height: 500px;}
+		.back-icon {
+			width: 50px;
+			height: 50px;
+			line-height: 24px;
+			background: gray;
+			text-align: center;
+			position: fixed;
+			top: 80%;
+    		left: 95%;
+    		cursor: pointer;
+    		display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="c1"></div>
+		<div class="c2"></div>
+		<div class="c3"></div>
+	</div>
+	<!-- 返回顶部按钮 -->
+	<div id="back_icon" class="back-icon">
+		<span>回到<br>顶部</span>
+	</div>
+
+	<script type="text/javascript">
+
+		window.onload = function () {
+			var back_icon = document.getElementById('back_icon');
+			var timer = null;
+			var istop = true;
+			var clientHeight = document.documentElement.clientHeight;
+
+			//滚动条滚动时触发
+			window.onscroll = function () {
+				var top = document.documentElement.scrollTop || document.body.scrollTop;
+				if (top >= clientHeight) {
+					back_icon.style.display = 'block';
+				}else{
+					back_icon.style.display = 'none';
+				}
+
+				if(!istop){
+					clearInterval(timer);
+				}
+				istop = false;
+			}
+
+			back_icon.onclick = function () {
+				timer = setInterval(function () {
+				var top = document.documentElement.scrollTop || document.body.scrollTop;
+				var speed = Math.floor(-top / 5);
+				document.documentElement.scrollTop = document.body.scrollTop = top + speed;
+
+				istop = true;
+				if (top == 0){
+					clearInterval(timer);
+				}
+				}, 30);	
+			};
+		}
+
+	</script>
+</body>
+</html>
